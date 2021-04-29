@@ -1,4 +1,5 @@
 const { Given, When, Then } = require('@cucumber/cucumber');
+const { random } = require('lodash');
 const testpage = require('../pageobjects/testpage.js');
 
 
@@ -7,13 +8,17 @@ Given(/^the user is on the test page$/, async () => {
 });
 
 When(/^the user adds a new user (\w+) to the table$/, async (userName) => {
+    const Company = [15,16];
+    const Role = ["Admin", "Customer", "Sales Team"]
+    const randomCompany = Math.floor(Math.random() * Company.length);
+    const randomRole = Math.floor(Math.random() * Role.length);
     await testpage.ClickAddUserButton();
     await testpage.SetFirstName("newFirstName");
     await testpage.SetLastName("newLastName");
     await testpage.SetUserName(userName);
     await testpage.SetPassword("dummypw");
-    await testpage.SetCompany("15");
-    await testpage.SetRole("Admin");
+    await testpage.SetCompany(Company[randomCompany]);
+    await testpage.SetRole(Role[randomRole]);
     await testpage.SetEmail("testemail@test.com");
     await testpage.SetPhone("3122222222");
     await testpage.ClickSaveUser();
